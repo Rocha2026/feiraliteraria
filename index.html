@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feira Literária 2025 - Cordéis de Lendas, Fábulas e Contos de Terror</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+
+        body {
+            background-color: #1a0f0f;
+            color: #f5e9d4;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Imagem de fundo com tema de cordel */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background-color: rgba(26, 15, 15, 0.8);
+            border-bottom: 2px solid #8b4513;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #f5e9d4;
+        }
+
+        .developer-credit {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #d4af37;
+            font-style: italic;
+        }
+
+        .folders-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .folder {
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .folder:hover {
+            transform: translateY(-10px);
+        }
+
+        .folder-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .folder:hover .folder-inner {
+            transform: rotateY(10deg);
+        }
+
+        .folder-front, .folder-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .folder-front {
+            background: linear-gradient(135deg, #8b4513, #a0522d);
+            border: 5px solid #d4af37;
+        }
+
+        .folder-back {
+            background: linear-gradient(135deg, #654321, #8b4513);
+            transform: rotateY(180deg);
+            border: 5px solid #f5e9d4;
+        }
+
+        .folder-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #f5e9d4;
+        }
+
+        .folder-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f5e9d4;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .folder-subtitle {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: #f5e9d4;
+        }
+
+        .folder-a .folder-front {
+            background: linear-gradient(135deg, #8b0000, #b22222);
+        }
+
+        .folder-b .folder-front {
+            background: linear-gradient(135deg, #006400, #228b22);
+        }
+
+        .folder-c .folder-front {
+            background: linear-gradient(135deg, #00008b, #1e90ff);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            background-color: rgba(26, 15, 15, 0.8);
+            border-top: 2px solid #8b4513;
+        }
+
+        /* Estilos para as páginas das turmas */
+        .class-page {
+            display: none;
+            padding: 20px;
+        }
+
+        .class-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: rgba(26, 15, 15, 0.8);
+            border-radius: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #8b4513;
+            color: #f5e9d4;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #a0522d;
+        }
+
+        .videos-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .video-card {
+            background-color: rgba(26, 15, 15, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* MELHORIAS NO PLAYER DE VÍDEO */
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 75%; /* Proporção 4:3 - ajuste conforme necessário */
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #d4af37;
+        }
+
+        .video-description {
+            font-size: 1rem;
+            color: #f5e9d4;
+        }
+
+        /* Elementos decorativos com tema de cordel */
+        .cordel-decoration {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 C70,10 90,30 90,50 C90,70 70,90 50,90 C30,90 10,70 10,50 C10,30 30,10 50,10 Z" fill="none" stroke="%23d4af37" stroke-width="2"/></svg>');
+        }
+
+        .decoration-2 {
+            bottom: 10%;
+            right: 5%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M10,50 L90,50 M50,10 L50,90" fill="none" stroke="%23d4af37" stroke-width="2"/></svg>');
+        }
+
+        /* Estilo para vídeos placeholder */
+        .video-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f5e9d4;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="cordel-decoration decoration-1"></div>
+    <div class="cordel-decoration decoration-2"></div>
+
+    <div class="container">
+        <header>
+            <h1>Feira Literária 2025</h1>
+            <p class="subtitle">Cordéis - Lendas, Fábulas e Contos de Terror</p>
+            <p class="developer-credit">Desenvolvido por Patrik da Rocha</p>
+        </header>
+
+        <main>
+            <div class="folders-container">
+                <!-- Pasta 4ºA -->
+                <div class="folder folder-a" onclick="showClassPage('class-a')">
+                    <div class="folder-inner">
+                        <div class="folder-front">
+                            <div class="folder-icon">📚</div>
+                            <h2 class="folder-title">4º Ano A</h2>
+                            <p class="folder-subtitle">Clique para ver os vídeos</p>
+                        </div>
+                        <div class="folder-back">
+                            <h2 class="folder-title">Cordeis Declamados</h2>
+                            <p class="folder-subtitle">Turma do 4º Ano A</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pasta 4ºB -->
+                <div class="folder folder-b" onclick="showClassPage('class-b')">
+                    <div class="folder-inner">
+                        <div class="folder-front">
+                            <div class="folder-icon">📖</div>
+                            <h2 class="folder-title">4º Ano B</h2>
+                            <p class="folder-subtitle">Clique para ver os vídeos</p>
+                        </div>
+                        <div class="folder-back">
+                            <h2 class="folder-title">Cordeis Declamados</h2>
+                            <p class="folder-subtitle">Turma do 4º Ano B</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pasta 4ºC -->
+                <div class="folder folder-c" onclick="showClassPage('class-c')">
+                    <div class="folder-inner">
+                        <div class="folder-front">
+                            <div class="folder-icon">🎭</div>
+                            <h2 class="folder-title">4º Ano C</h2>
+                            <p class="folder-subtitle">Clique para ver os vídeos</p>
+                        </div>
+                        <div class="folder-back">
+                            <h2 class="folder-title">Cordeis Declamados</h2>
+                            <p class="folder-subtitle">Turma do 4º Ano C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página da Turma 4ºA -->
+            <div id="class-a" class="class-page">
+                <a href="#" class="back-button" onclick="hideClassPages()">← Voltar para a página inicial</a>
+                <div class="class-header">
+                    <h2>4º Ano A - Contos de Terror</h2>
+                    <p>Assista às apresentações dos alunos</p>
+                </div>
+                <div class="videos-container">
+                    <!-- 4º ANO A -->
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/11T2dyZS_cQ9JZVr-kopx6oWN-jWMM0as/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O dia Sombrio - Aluna Alhena Fessel Gomes">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O dia Sombrio</h3>
+        <p class="video-description">Aluna: Alhena Fessel Gomes</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1d2AMTggWTlytBbg9lUywig7fRFct-mQu/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Chuva Perigosa e Escura - Aluna Beatris Vitoria Da C. Guitierrez">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Chuva Perigosa e Escura</h3>
+        <p class="video-description">Aluna: Beatris Vitoria Da C. Guitierrez</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/12jMqAE_j2KKXUQGPxNo_QDxBKD8mFLTW/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Five Night's At Freddy's 3 - Aluno Carlos Wesley Francisco">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Five Night's At Freddy's 3</h3>
+        <p class="video-description">Aluno: Carlos Wesley Francisco</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1qqLmQZuJ6Zo91zsx7ct7rkCX1VExkUz2/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Fantasma - Aluno Charles Henrique C. Guimarães">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Fantasma</h3>
+        <p class="video-description">Aluno: Charles Henrique C. Guimarães</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1GiALovJuD-Eicv7vuQ4AjdMI0t0ud7o7/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Noite Sombria - Aluno Enrico Amorim dos Reis">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Noite Sombria</h3>
+        <p class="video-description">Aluno: Enrico Amorim dos Reis</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Q_FwggKligol9Atq0jYqwgTd3c0hHVPN/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Sombra do Parque - Aluno Gabriel Ferreira Chiosini">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Sombra do Parque</h3>
+        <p class="video-description">Aluno: Gabriel Ferreira Chiosini</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1q3ak_m4BeWv9MNT60O8HKLP0dQvKuUOk/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Noite de Terror - Aluno Gabriel Nogueira Barbosa Cassemiro">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Noite de Terror</h3>
+        <p class="video-description">Aluno: Gabriel Nogueira Barbosa Cassemiro</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1X9oatVNYS0RZzy4tqERZMmZs4QfbdQhC/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Medo - Aluno Heitor Rosa Ferreira">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Medo</h3>
+        <p class="video-description">Aluno: Heitor Rosa Ferreira</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1tGI51XEqMZhJvn-fsF6175SrC0MKD5N9/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Fantasma do Parque - Aluna Helena Mendonça Canais">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Fantasma do Parque</h3>
+        <p class="video-description">Aluna: Helena Mendonça Canais</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Y8QgB6KW-VYqpFbKLQgQpI75x84aEHI7/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Bilhete da Mesa - Aluno José Henrique de Barror Alves">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Bilhete da Mesa</h3>
+        <p class="video-description">Aluno: José Henrique de Barror Alves</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Pv9BsoYHOGfdlW5AKv47YO2k84B1Zkx2/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Noite no Parque Aquático - Aluna Julia Capobianco Cardoso">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Noite no Parque Aquático</h3>
+        <p class="video-description">Aluna: Julia Capobianco Cardoso</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1c2ZcB_uWyzr39T0BI0OUjlgX8pm6FdUx/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Floresta Escura - Aluna Larissa Dib Miranda">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Floresta Escura</h3>
+        <p class="video-description">Aluna: Larissa Dib Miranda</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1YEQvCIu4NU19IMkNaO7OraRk1kP9aHzB/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Noite Estranha - Aluno Lucas Henrique Muniz Jorges">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Noite Estranha</h3>
+        <p class="video-description">Aluno: Lucas Henrique Muniz Jorges</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/14tPEhhQlFNGXRUo-01Et2FdrLpGrNGeG/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Igreja Abandonada - Aluna Luna Hope Pereira dos Santos">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Igreja Abandonada</h3>
+        <p class="video-description">Aluna: Luna Hope Pereira dos Santos</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1IFhdTpFnffBpqRcD2LynrkZSCprf3RGL/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Fantasma Amigo - Aluna Marina Ferreira de Almeida">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Fantasma Amigo</h3>
+        <p class="video-description">Aluna: Marina Ferreira de Almeida</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1AAOQcCGIU40C_s0MxkF_dY_0b1WXv5js/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Substituídos - Aluno Pedro Henrique Lira Ribeiro">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Substituídos</h3>
+        <p class="video-description">Aluno: Pedro Henrique Lira Ribeiro</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Ufnn7QFKTdX5OMv91l-6lEbhtRBZbkT5/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Coisas da Noite - Aluno Piettro Lang Pereira">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Coisas da Noite</h3>
+        <p class="video-description">Aluno: Piettro Lang Pereira</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/16BMR3HgdyYSMIYkUcsiiZWwEFskfErj_/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Fazbear Entertainment - Aluno Renan Jardim Maciel">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Fazbear Entertainment</h3>
+        <p class="video-description">Aluno: Renan Jardim Maciel</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1NCq2JOWro9zHt82sTRHpoNvz4rjQqqzF/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Bosque Mal Assombrado - Aluna Sophia Giglioti Guidotti">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Bosque Mal Assombrado</h3>
+        <p class="video-description">Aluna: Sophia Giglioti Guidotti</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1xIAveCNqsHkzHWz0dRc0-G9ACjGKuI6g/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Um Dia Na Fazenda - Aluno Vinicius Itipão Barbosa">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Um Dia Na Fazenda</h3>
+        <p class="video-description">Aluno: Vinicius Itipão Barbosa</p>
+    </div>
+</div>
+                </div>
+            </div>
+
+            <!-- Página da Turma 4ºB -->
+            <div id="class-b" class="class-page">
+                <a href="#" class="back-button" onclick="hideClassPages()">← Voltar para a página inicial</a>
+                <div class="class-header">
+                    <h2>4º Ano B - Lendas Brasileiras</h2>
+                    <p>Assista às apresentações dos alunos</p>
+                </div>
+                <div class="videos-container">
+                    <!-- 4º ANO B -->
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1-LMBZBtgigpkn2zv-he4YIGyYiALLaoK/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Lenda do Boitatá - Aluno Acauã Munaro de Medeiros">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Lenda do Boitatá</h3>
+        <p class="video-description">Aluno: Acauã Munaro de Medeiros</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1wiGiOXNy0Gecn_xt8ZsWbhl_mmOCJx-2/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda do Diamante - Aluna Ana Clara de Lima da Silva">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda do Diamante</h3>
+        <p class="video-description">Aluna: Ana Clara de Lima da Silva</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1z-kJcnNP_9PKt-j-3tGvw0IEdZU9ynmP/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Pirarucu Cintilante - Aluna Anna Catharina Puga Frighetto">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Pirarucu Cintilante</h3>
+        <p class="video-description">Aluna: Anna Catharina Puga Frighetto</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1QA2gVUnqq3SVoIsRiael4s-uEOUGf1ES/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda do Guaraná - Aluna Eduarda Rafaelly da Silva">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda do Guaraná</h3>
+        <p class="video-description">Aluna: Eduarda Rafaelly da Silva</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1twndzoUn7rTxQA1LdevI8xiVthnH17Yz/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Lenda da Caipora - Aluna Lara Laurinda da Silva">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Lenda da Caipora</h3>
+        <p class="video-description">Aluna: Lara Laurinda da Silva</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/179QLUUU-QkBcwBCd0Cb4ReS8JTCXNBY6/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda do Homem do Saco - Aluno Leonardo Carvalho Sgorlon">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda do Homem do Saco</h3>
+        <p class="video-description">Aluno: Leonardo Carvalho Sgorlon</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/136PDX8WroSolHRFlmjBx_-ur_09d4Ron/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda da Matinta Pereira - Aluno Lucas Zampieri R. Gimenes">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda da Matinta Pereira</h3>
+        <p class="video-description">Aluno: Lucas Zampieri R. Gimenes</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1yVaQ4pEMQXFXR5nCmSk-1niGJwwjMNND/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Negrinho do Pastoreio - Aluno Luigi Santos da Silva">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Negrinho do Pastoreio</h3>
+        <p class="video-description">Aluno: Luigi Santos da Silva</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1KILalHfeyAh_daHU1qRd_kcQbJnb-Hmm/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Seja Uma Criança Boazinha - Aluna Marcela Weksler Mourão">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Seja Uma Criança Boazinha</h3>
+        <p class="video-description">Aluna: Marcela Weksler Mourão</p>
+    </div>
+</div>
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1j2qOU70CibvDz0dwQXict3zdVIbhziuy/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Vitória-Régia - Aluna Maria Valentina Campos de Lima">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Vitória-Régia</h3>
+        <p class="video-description">Aluna: Maria Valentina Campos de Lima</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1JghSmh5YEbwfbqvKz0x07ITkktH-0EUP/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Mula Sem Cabeça - Aluna Melissa Mel A. Pereira">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Mula Sem Cabeça</h3>
+        <p class="video-description">Aluna: Melissa Mel A. Pereira</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1swsy492yggtUOBQZSzFZKTKEx_alkqcX/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Loira do Banheiro - Aluna Paloma Ayla Dantas Alonso">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Loira do Banheiro</h3>
+        <p class="video-description">Aluna: Paloma Ayla Dantas Alonso</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/13AZ6kgU1g2iuSFTIKDI7lQG70H5ZcSpf/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda do Curupira - Aluno Pedro Vieira M. dos Santos">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda do Curupira</h3>
+        <p class="video-description">Aluno: Pedro Vieira M. dos Santos</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/18pGzeyLDroD2WkBkAJxFjqX--R5ullpG/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda da Mandioca - Aluna Rafaella Munhoz Ambrósio">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda da Mandioca</h3>
+        <p class="video-description">Aluna: Rafaella Munhoz Ambrósio</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1gZE5RSYq-4Hk8_-7uFd_6q4t3if_oGsN/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda da Iara - Aluno Renan Lucas Alves">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda da Iara</h3>
+        <p class="video-description">Aluno: Renan Lucas Alves</p>
+    </div>
+</div>
+
+                   <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1i2-O0Vphjp0nYAWgSHTU6jush9vvBGDc/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lenda do Saci Pererê - Aluno Ricardo Augusto Sepe">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lenda do Saci Pererê</h3>
+        <p class="video-description">Aluno: Ricardo Augusto Sepe</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/10pZll8K5gMR5QyjrqkxzyumwjViA_RGf/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Lobisomem - Aluno Ronaldo Bertato Valente">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Lobisomem</h3>
+        <p class="video-description">Aluno: Ronaldo Bertato Valente</p>
+    </div>
+</div>
+
+                   <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1MvKutuwAzCXFKPtUgXuO72k3riwd3iS5/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Boi da Cara Preta - Aluna Sophia Santos Pereira">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Boi da Cara Preta</h3>
+        <p class="video-description">Aluna: Sophia Santos Pereira</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1vJmLY3e46rRcty8yHaaSb_47MeX3TQj6/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Bicho Papão - Aluno Vinicius Pereira Genguini">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Bicho Papão</h3>
+        <p class="video-description">Aluno: Vinicius Pereira Genguini</p>
+    </div>
+</div>
+                </div>
+            </div>
+
+            <!-- Página da Turma 4ºC -->
+            <div id="class-c" class="class-page">
+                <a href="#" class="back-button" onclick="hideClassPages()">← Voltar para a página inicial</a>
+                <div class="class-header">
+                    <h2>4º Ano C - Fábulas</h2>
+                    <p>Assista às apresentações dos alunos</p>
+                </div>
+                <div class="videos-container">
+                    <!-- 4º ANO C -->
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1NXkN1zRS0erRBRmCtlIs07lJEfYzutGL/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Formiga e a Cigarra - Aluna Alice Lopes Daniel">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Formiga e a Cigarra</h3>
+        <p class="video-description">Aluna: Alice Lopes Daniel</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1m-Cm4lbaamVzPmHb5Pj3emTXTjwSwIba/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Rato do Campo e o Rato da Cidade - Aluna Alice Santiago Campos">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Rato do Campo e o Rato da Cidade</h3>
+        <p class="video-description">Aluna: Alice Santiago Campos</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1gWXpMUFm4bSIBHRThoKSweZwhGoquU6A/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Assembléia dos Ratos - Aluna Alícia Marques Fernandes">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Assembléia dos Ratos</h3>
+        <p class="video-description">Aluna: Alícia Marques Fernandes</p>
+    </div>
+</div>
+                    
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/15PumlunYsYpe_Xx3gpF2Izh4umJJZuf_/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: As Árvores e o Machado - Aluno Caio Lima de Mello">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">As Árvores e o Machado</h3>
+        <p class="video-description">Aluno: Caio Lima de Mello</p>
+    </div>
+</div>
+
+                   <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Bjiw1x3fH8YOSCACsSr8IvbnMDpCtesl/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Velho, o Menino e a Mula - Aluna Catarina Varela Simões">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Velho, o Menino e a Mula</h3>
+        <p class="video-description">Aluna: Catarina Varela Simões</p>
+    </div>
+</div>
+
+                   <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1EsIVgvVsuxsBzAgTKna5HNFiXHxwKOFC/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lebre e a Tartaruga - Aluno Gabriel Soares Martins">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lebre e a Tartaruga</h3>
+        <p class="video-description">Aluno: Gabriel Soares Martins</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1Url4w0UmAXCm5rwwryXkNh-h5obKDObR/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Ratinho, o Gato e o Galo - Aluna Gabriela Camargo Lorenzo">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Ratinho, o Gato e o Galo</h3>
+        <p class="video-description">Aluna: Gabriela Camargo Lorenzo</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1NucR4GfOfaX51w0nauyb8tCv5yvHTGkI/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Mosca e o Carro - Aluno Gael de Araújo Gomes">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Mosca e o Carro</h3>
+        <p class="video-description">Aluno: Gael de Araújo Gomes</p>
+    </div>
+</div>
+
+                   <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/10zhgyftNmI_thMYFLFrUsGshdATRYmpM/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Cão e o Osso - Aluno Heitor Cardoso de Lima">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Cão e o Osso</h3>
+        <p class="video-description">Aluno: Heitor Cardoso de Lima</p>
+    </div>
+</div>
+
+                  <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1gnxktbCM32OyCzZakn_egx9NutL6_E12/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Leão e o Ratinho - Aluna Heloisa Barboza Braz">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Leão e o Ratinho</h3>
+        <p class="video-description">Aluna: Heloisa Barboza Braz</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1yXiVs309aCjHqBTOgDMRz1tQT8Rsnsnz/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Lebre Com Muitos Amigos - Aluno João Lucas Soares Gouveia">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Lebre Com Muitos Amigos</h3>
+        <p class="video-description">Aluno: João Lucas Soares Gouveia</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1E8eajBZOpJB-xIXdwCcohsn-r87Ck0iP/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Lobo e o Cão - Aluno Lorenzo Ryu Shigueno Fernandes">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Lobo e o Cão</h3>
+        <p class="video-description">Aluno: Lorenzo Ryu Shigueno Fernandes</p>
+    </div>
+</div>
+
+                  <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1ku5WCqkBUv8V9u4TRUdStAAIOnEZImQc/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Formiga e a Pomba - Aluna Maria Júlia de Lima Pimenta">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Formiga e a Pomba</h3>
+        <p class="video-description">Aluna: Maria Júlia de Lima Pimenta</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1l7tJgY3_Cb-yMHsAidgt6g4d6-8766Gj/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Raposa e o Corvo - Aluna Melissa Ferrari Prado">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Raposa e o Corvo</h3>
+        <p class="video-description">Aluna: Melissa Ferrari Prado</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1664lziqXB1xJTY6unHcH3rtaIZRJKkAT/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: Os dois Amigos e o Urso - Aluno Miguel Ragazzi Pelusso">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">Os dois Amigos e o Urso</h3>
+        <p class="video-description">Aluno: Miguel Ragazzi Pelusso</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1cKswiFDI9SkKpSYPeCdtoAWwH1C-dRjG/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Sábia Rã e o Sapo Arrogante - Aluno Pedro Henrique de Castro Corral">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Sábia Rã e o Sapo Arrogante</h3>
+        <p class="video-description">Aluno: Pedro Henrique de Castro Corral</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/119lFc5n4UivmehEDoNngRBWAgn0-EZdD/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Corvo e a Jarra - Aluno Pedro Custódio">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Corvo e a Jarra</h3>
+        <p class="video-description">Aluno: Pedro Custódio</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1iqLI0v5O2qEDa5bhY32gMNleCT4nzQW9/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: A Raposa e as Uvas - Aluno Pedro Lucas Vaz Souza">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">A Raposa e as Uvas</h3>
+        <p class="video-description">Aluno: Pedro Lucas Vaz Souza</p>
+    </div>
+</div>
+
+                     <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1HT2d68nKiAq8UYs9PFJKxktkJj-WKec5/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Gato e a Raposa - Aluno Thales Henrique Staufaker">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Gato e a Raposa</h3>
+        <p class="video-description">Aluno: Thales Henrique Staufaker</p>
+    </div>
+</div>
+
+                    <div class="video-card">
+    <div class="video-player-container">
+        <iframe class="video-player" 
+                src="https://drive.google.com/file/d/1ZCafxGVrOyT9lFYSQtYjO8BG6fli6RdK/preview" 
+                allow="autoplay; encrypted-media; fullscreen" 
+                allowfullscreen 
+                playsinline
+                webkit-playsinline
+                moz-playsinline
+                loading="lazy"
+                title="Vídeo: O Pastorzinho e o Lobo - Aluno Vinícius Pescara Marques">
+        </iframe>
+    </div>
+    <div class="video-info">
+        <h3 class="video-title">O Pastorzinho e o Lobo</h3>
+        <p class="video-description">Aluno: Vinícius Pescara Marques</p>
+    </div>
+</div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Feira Literária 2025 - E.M.E.F "Maria Luiza Fornasier Franzin"</p>
+            <p>Tema: Cordéis</p>
+            <p class="developer-credit">Desenvolvido por Patrik da Rocha</p>
+        </footer>
+    </div>
+
+    <script>
+        // Função para mostrar a página de uma turma específica
+        function showClassPage(className) {
+            // Esconde todas as páginas de turma
+            const classPages = document.querySelectorAll('.class-page');
+            classPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Mostra a página da turma selecionada
+            document.getElementById(className).style.display = 'block';
+            
+            // Rola para o topo da página
+            window.scrollTo(0, 0);
+        }
+
+        // Função para voltar à página inicial
+        function hideClassPages() {
+            const classPages = document.querySelectorAll('.class-page');
+            classPages.forEach(page => {
+                page.style.display = 'none';
+            });
+        }
+
+        // Inicializa a página com a página inicial visível
+        document.addEventListener('DOMContentLoaded', function() {
+            hideClassPages();
+        });
+
+        // Função para forçar redimensionamento dos vídeos
+        function resizeVideos() {
+            const videoContainers = document.querySelectorAll('.video-player-container');
+            videoContainers.forEach(container => {
+                const iframe = container.querySelector('iframe');
+                if (iframe) {
+                    // Ajusta a proporção conforme necessário
+                    container.style.paddingBottom = '75%'; // 4:3
+                }
+            });
+        }
+
+        // Redimensiona os vídeos quando a página carrega
+        window.addEventListener('load', resizeVideos);
+        window.addEventListener('resize', resizeVideos);
+    </script>
+</body>
+</html>
